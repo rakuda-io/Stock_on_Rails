@@ -26,7 +26,7 @@ module StockOnRails
 
     config.generators do |g|
       g.assets false    #CSS,JavaScript fileは生成しない
-      g..test_frameword false     #test fileは生成しない
+      g.test_framework false     #test fileは生成しない
     end
 
     config.api_only = true
