@@ -29,6 +29,8 @@ module StockOnRails
       g.test_framework false     #test fileは生成しない
     end
 
+    config.time_zone = 'Tokyo'    #時間を日本時間に。config/initializers/time_formats.rbにて整形
+
     config.api_only = true
   end
 end
