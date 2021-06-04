@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_04_035124) do
+ActiveRecord::Schema.define(version: 2021_06_04_045607) do
 
   create_table "holdings", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "ticker", null: false
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 2021_06_04_035124) do
     t.float "dividend"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_holdings_on_user_id"
   end
 
   create_table "stocks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
@@ -34,4 +36,5 @@ ActiveRecord::Schema.define(version: 2021_06_04_035124) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "holdings", "users"
 end
