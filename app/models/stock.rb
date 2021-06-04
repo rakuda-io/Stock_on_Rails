@@ -1,9 +1,6 @@
 class Stock < ApplicationRecord
   validates :ticker, :url, presence: true
 
-  require 'mechanize'
-
-
   # finviz.comから最新の株データを取得するためのメソッド
   def self.get_stock_data
     agent = Mechanize.new
@@ -27,6 +24,7 @@ class Stock < ApplicationRecord
       if next_link.text == "next"
         next_url = next_link.get_attribute('href').match(/[&].+/).to_s
       else
+        puts "●●●●●●●●●●●●●●● 全データ取り込み完了 ●●●●●●●●●●●●●●● "
         break
       end
     end
