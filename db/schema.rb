@@ -10,13 +10,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_06_04_045607) do
+ActiveRecord::Schema.define(version: 2021_06_06_001903) do
 
   create_table "holdings", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "ticker", null: false
-    t.string "company_name", null: false
     t.float "quantity", null: false
-    t.float "dividend"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id", null: false
@@ -25,6 +23,10 @@ ActiveRecord::Schema.define(version: 2021_06_04_045607) do
 
   create_table "stocks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "ticker", null: false
+    t.string "company_name", null: false
+    t.string "sector", null: false
+    t.string "country", null: false
+    t.float "dividend"
     t.string "url", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
