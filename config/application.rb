@@ -30,6 +30,7 @@ module StockOnRails
     end
 
     config.time_zone = 'Tokyo'    #時間を日本時間に。config/initializers/time_formats.rbにて整形
+    config.active_record.default_timezone = :local
 
     config.api_only = true
   end

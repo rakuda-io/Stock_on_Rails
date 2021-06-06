@@ -23,17 +23,6 @@ module Api
           dividend: @dividend
         }, status: :ok
       end
-
-
-      private
-        def get_stock_detailed_data
-          agent = Mechanize.new
-          current_page = agent.get(@url)
-          @company_name = current_page.search("a:first b").text
-          @sector = current_page.search(".tab-link").children[13].text
-          @country = current_page.search(".tab-link").children[15].text
-          @dividend = current_page.search(".snapshot-td2").children[36].text.to_f
-        end
     end
   end
 end
