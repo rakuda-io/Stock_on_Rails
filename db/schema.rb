@@ -12,7 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2021_06_06_001903) do
 
-  create_table "holdings", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "holdings", charset: "utf8mb4", force: :cascade do |t|
     t.string "ticker", null: false
     t.float "quantity", null: false
     t.datetime "created_at", precision: 6, null: false
@@ -21,7 +21,7 @@ ActiveRecord::Schema.define(version: 2021_06_06_001903) do
     t.index ["user_id"], name: "index_holdings_on_user_id"
   end
 
-  create_table "stocks", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "stocks", charset: "utf8mb4", force: :cascade do |t|
     t.string "ticker", null: false
     t.string "company_name", null: false
     t.string "sector", null: false
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(version: 2021_06_06_001903) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
-  create_table "users", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
+  create_table "users", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
