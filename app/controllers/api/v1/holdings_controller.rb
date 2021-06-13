@@ -2,12 +2,12 @@ module Api
   module V1
     class HoldingsController < ApplicationController
       def index
-        users = User.all
-        holdings = users.holdings
+        user = User.find(params[:user_id])
+        holdings = user.holdings.order(quantity: :desc) #.select(:ticker)
 
         render json: [
-          user: users,
-          holdings: holdings,
+          user: user,
+          holdings: holdings
         ], status: :ok
       end
     end
