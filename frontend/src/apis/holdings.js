@@ -3,8 +3,8 @@
 import axios from 'axios';
 import { holdingsIndex } from '../urls/index';
 
-export const fetchHoldings =() => {
-  return axios.get(holdingsIndex)
+export const fetchHoldings = (userId) => {
+  return axios.get(holdingsIndex(userId))
   .then(res => {
     return res.data
   })
