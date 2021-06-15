@@ -9,7 +9,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        // 保有株一覧ページ（未作成）
+        {/* 保有株一覧ページ（未作成） */}
         <Route exact path="/holdings">
           <Holdings />
         </Route>
