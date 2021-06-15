@@ -13,6 +13,10 @@ function App() {
         <Route exact path="/holdings">
           <Holdings />
         </Route>
+        <Route exact path="/users/:user_id/holdings" render={({ match}) =>
+          <Holdings match={match} />
+        }
+        />
       </Switch>
     </Router>
   );
