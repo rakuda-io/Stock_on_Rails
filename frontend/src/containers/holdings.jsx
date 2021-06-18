@@ -5,7 +5,7 @@ import { fetchHoldings } from '../apis/holdings';
 
 export const Holdings = ({ match }) => {
   useEffect(() => {
-    fetchHoldings()
+    fetchHoldings(match.params.user_id)
     .then((data) =>
       console.log(data)
       )
@@ -14,7 +14,7 @@ export const Holdings = ({ match }) => {
     <Fragment>
       保有株一覧
       <p>
-        UserIDは {match.params.userId} です
+        UserIDは {match.params.user_id} です
       </p>
     </Fragment>
   )

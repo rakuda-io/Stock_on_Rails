@@ -7,7 +7,7 @@ module Api
 
         render json: [
           user: user,
-          holdings: holdings
+          保有株一覧: holdings
         ], status: :ok
       end
     end

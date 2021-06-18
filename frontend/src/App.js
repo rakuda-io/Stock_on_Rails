@@ -10,13 +10,13 @@ function App() {
     <Router>
       <Switch>
         {/* 保有株一覧ページ（未作成） */}
-        <Route exact path="/holdings">
+        {/* <Route exact path="/holdings">
           <Holdings />
-        </Route>
+        </Route> */}
         <Route
         exact
-        path="/users/:userId/holdings"
-        render={({ match}) =>
+        path="/users/:user_id/holdings"
+        render={({ match }) =>
           <Holdings
           match={match}
           />
