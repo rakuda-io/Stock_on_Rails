@@ -6,8 +6,7 @@ module Api
         holdings = user.holdings.order(quantity: :desc) #.select(:ticker)
 
         render json: [
-          user: user,
-          保有株一覧: holdings
+          holdings: holdings
         ], status: :ok
       end
     end
