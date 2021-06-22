@@ -62,6 +62,7 @@ export const Holdings = ({
       <MainCoverWrapper>
         <MainCoverImage src={MainCover} alt="main cover" />
       </MainCoverWrapper>
+      <p>保有株一覧</p>
       {
         holdingsState.fetchState === REQUEST_STATE.LOADING ?
           <Fragment>
@@ -70,14 +71,12 @@ export const Holdings = ({
             </p>
           </Fragment>
         :
-          // console.log(holdingsState.holdingsList)
           holdingsState.holdingsList.map(holding =>
             <div key={holding.id}>
-              {holding.ticker}
+              {holding.ticker.toUpperCase()}：{holding.quantity}株
             </div>
           )
       }
-      保有株一覧
       <p>
         UserIDは {match.params.user_id} です
       </p>
