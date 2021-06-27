@@ -11,6 +11,7 @@ module Api
           individual_page = agent.get(url)
           dividend = individual_page.search("td")[106].text.to_f
           Holding.where(ticker: ticker).update(dividend: dividend)
+          total_dividend = dividend * holding.quantity.to_f
           if Holding.where(ticker: ticker).select(:company_name)
             company_name = Stock.where(ticker: ticker).pluck(:company_name).join
             Holding.where(ticker: ticker).update(company_name: company_name)
@@ -25,6 +26,9 @@ module Api
           end
           if Holding.where(ticker: ticker).select(:sector)
             Holding.where(ticker: ticker).update(url: url)
+          end
+          if Holding.where(ticker: ticker).select(:total_dividend)
+            Holding.where(ticker: ticker).update(total_dividend: total_dividend)
           end
         }
 
