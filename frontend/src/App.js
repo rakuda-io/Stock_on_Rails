@@ -3,7 +3,9 @@ import './App.css';
 import { BrowserRouter as Router, Switch, Route, } from 'react-router-dom';
 
 //components
-import { Holdings } from './containers/holdings.jsx';
+// import { HoldingsList } from './containers/HoldingsList.jsx';
+// import { PieCharts } from './containers/PieChart.jsx';
+import { Dashboard } from './containers/Dashboard.jsx';
 
 function App() {
   return (
@@ -12,11 +14,14 @@ function App() {
         <Route
         exact
         path="/users/:user_id/holdings"
-        render={({ match }) =>
-          <Holdings
-          match={match}
-          />
-        }
+        render= {({match}) =>
+          <Dashboard match={match}/>
+      }
+      // render={({ match }) =>
+      //   <PieCharts
+      //   match={match}
+      //   />
+      // }
         />
       </Switch>
     </Router>
