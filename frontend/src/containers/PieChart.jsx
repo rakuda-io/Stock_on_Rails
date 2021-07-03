@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useReducer } from 'react';
 import { PieChart, Pie, Text, Cell, Tooltip } from 'recharts';
+import styled from 'styled-components';
 
 //reducers
 import {
@@ -13,6 +14,11 @@ import { fetchHoldings } from '../apis/holdings';
 
 //constants
 import { REQUEST_STATE } from '../constants';
+
+//css
+const ChartsWrapper = styled.div`
+  margin: 0px;
+`
 
 //円グラフ関連
 const Label = ({ ticker, total_dividend, x, y }) => {
@@ -67,7 +73,8 @@ export const PieCharts = ({
             </p>
           </Fragment>
         :
-        <PieChart width={730} height={250}>
+        <ChartsWrapper>
+          <PieChart width={730} height={250}>
           <Pie data={holdingsState.holdingsList} dataKey='total_dividend' cx='30%' cy='60%' outerRadius={100} fill='#82ca9d' label={Label} startAngle={90} endAngle={-270}>
             {holdingsState.holdingsList.map((entry,index) =>
               <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />)
@@ -75,6 +82,7 @@ export const PieCharts = ({
           </Pie>
           <Tooltip content={<CustomTooltip />} />
         </PieChart>
+        </ChartsWrapper>
       }
     </Fragment>
   )}
