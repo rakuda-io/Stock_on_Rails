@@ -6,16 +6,18 @@ import styled from 'styled-components';
 import { HeaderParts } from './HeaderParts.jsx';
 import { PieCharts } from './PieChart.jsx';
 import { HoldingsList } from './HoldingsList.jsx';
+import { Total_dividend } from './TotalDividend.jsx';
+import { MyContext } from '../MyContext.js';
 
 const ChartsWrapper = styled.ul`
-  display: flex;
-  background-color: brown;
+  display: grid;
+  /* background-color: brown; */
   list-style: none;
   padding: 0px;
 `;
 
 const Chart = styled.li`
-  margin-right: -300px;
+  margin-right: -350px;
 `
 
 const List = styled.li`
@@ -24,7 +26,6 @@ const List = styled.li`
 
 
 export const Dashboard = ({match}) => {
-  const theme = useTheme();
 
   return(
     <>
@@ -33,10 +34,11 @@ export const Dashboard = ({match}) => {
         <Chart>
           <PieCharts match={match}/>
         </Chart>
+        <Total_dividend match={match}/>
+      </ChartsWrapper>
         <List>
          <HoldingsList match={match}/>
         </List>
-      </ChartsWrapper>
     </>
   )
 }

@@ -46,6 +46,8 @@ export const HoldingsList = ({
       });
     })
   },[match.params.user_id])
+  // holdingsState.holdingsList.map((holding) => (
+  //   holding.company_name
 
   return(
     <Fragment>
