@@ -7,6 +7,7 @@ import { HeaderParts } from './HeaderParts.jsx';
 import { PieCharts } from './PieChart.jsx';
 import { HoldingsList } from './HoldingsList.jsx';
 import { Total_dividend } from './TotalDividend.jsx';
+import { Level } from './Level.jsx';
 import { MyContext } from '../MyContext.js';
 
 const ChartsWrapper = styled.ul`
@@ -35,6 +36,7 @@ export const Dashboard = ({match}) => {
           <PieCharts match={match}/>
         </Chart>
         <Total_dividend match={match}/>
+        <Level match={match}/>
       </ChartsWrapper>
         <List>
          <HoldingsList match={match}/>
