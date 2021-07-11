@@ -46,6 +46,8 @@ export const HoldingsList = ({
       });
     })
   },[match.params.user_id])
+  // holdingsState.holdingsList.map((holding) => (
+  //   holding.company_name
 
   return(
     <Fragment>
@@ -65,7 +67,6 @@ export const HoldingsList = ({
               <TableCell><b>保有数</b></TableCell>
               <TableCell><b>一株配当額</b></TableCell>
               <TableCell><b>年間配当合計</b></TableCell>
-              <TableCell align="right"><b></b></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -76,7 +77,7 @@ export const HoldingsList = ({
                     {holding.ticker.toUpperCase()}
                   </TickerWrapper>
                 </TableCell>
-                <TableCell>{holding.company_name}</TableCell>
+                <TableCell size='small'>{holding.company_name}</TableCell>
                 <TableCell>{holding.quantity}株</TableCell>
                 <TableCell>${holding.dividend}</TableCell>
                 <TableCell>${holding.quantity * holding.dividend}</TableCell>

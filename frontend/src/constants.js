@@ -8,3 +8,7 @@ export const REQUEST_STATE = {
 export const HTTP_STATUS_CODE = {
   NOT_ACCEPTABLE: '406',
 }
+
+export const LEVEL = {
+
+}
