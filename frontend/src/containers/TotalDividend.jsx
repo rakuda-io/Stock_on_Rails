@@ -54,7 +54,6 @@ export const Total_dividend = ({
         <p>年間配当金額合計</p>
         <DividendWrapper>＄{total.toFixed(3)}-</DividendWrapper>
 
-
         <p>月別配当額を見る</p>
         </>
       }
