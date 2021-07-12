@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useReducer, useEffect, } from 'react';
 import { useTheme } from '@material-ui/core/styles';
 import styled from 'styled-components';
 
@@ -9,6 +9,16 @@ import { HoldingsList } from './HoldingsList.jsx';
 import { Total_dividend } from './TotalDividend.jsx';
 import { Level } from './Level.jsx';
 import { MyContext } from '../MyContext.js';
+
+//reducers
+import {
+  initialState,
+  holdingsActionTypes,
+  holdingsReducer,
+} from '../reducers/holdings';
+
+//apis
+import { fetchHoldings } from '../apis/holdings';
 
 const Background = styled.div`
   background-color: grey;
@@ -53,27 +63,45 @@ const List = styled.div`
   padding: 0 0 100px 0;
 `;
 
+export const HoldingsData = React.createContext()
 
-export const Dashboard = ({match}) => {
+export const Dashboard = ({
+  match
+  }) => {
+  const [holdingsState, dispatch] = useReducer(holdingsReducer, initialState);
+  useEffect(() => {
+    dispatch({ type: holdingsActionTypes.FETCHING});
+    fetchHoldings(match.params.user_id)
+    .then((data) => {
+      dispatch({
+        type: holdingsActionTypes.FETCH_SUCCESS,
+        payload: {
+          holdings: data[0].holdings
+        }
+      });
+    })
+  },[match.params.user_id])
 
   return(
     <>
       <Background>
       <HeaderParts padding="{theme}.spacing(4)"/>
-      <GridWrapper>
-        <Chart>
-          <PieCharts match={match}/>
-        </Chart>
-        <TotalWrapper>
-        <Total_dividend match={match}/>
-        </TotalWrapper>
-        <LevelWrapper>
-        <Level match={match}/>
-        </LevelWrapper>
-        <List>
-          <HoldingsList match={match}/>
-        </List>
-      </GridWrapper>
+      <HoldingsData.Provider value={{ holdingsState, dispatch }}>
+        <GridWrapper>
+          <Chart>
+            <PieCharts match={match}/>
+          </Chart>
+          <TotalWrapper>
+          <Total_dividend match={match}/>
+          </TotalWrapper>
+          <LevelWrapper>
+          <Level match={match}/>
+          </LevelWrapper>
+          <List>
+            <HoldingsList />
+          </List>
+        </GridWrapper>
+      </HoldingsData.Provider>
       </Background>
     </>
   )

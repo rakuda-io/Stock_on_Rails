@@ -1,16 +1,8 @@
-import React, { Fragment, useEffect, useReducer } from 'react';
+import React, { Fragment, useContext } from 'react';
 import { PieChart, Pie, Text, Cell, Tooltip } from 'recharts';
 import styled from 'styled-components';
 
-//reducers
-import {
-  initialState,
-  holdingsActionTypes,
-  holdingsReducer,
-} from '../reducers/holdings';
-
-//apis
-import { fetchHoldings } from '../apis/holdings';
+import { HoldingsData } from './Dashboard';
 
 //constants
 import { REQUEST_STATE } from '../constants';
@@ -46,22 +38,8 @@ const CustomTooltip = ({ active, payload }) => {
 };
 
 
-export const PieCharts = ({
-  match
-  }) => {
-  const [holdingsState, dispatch] = useReducer(holdingsReducer, initialState);
-  useEffect(() => {
-    dispatch({ type: holdingsActionTypes.FETCHING});
-    fetchHoldings(match.params.user_id)
-    .then((data) => {
-      dispatch({
-        type: holdingsActionTypes.FETCH_SUCCESS,
-        payload: {
-          holdings: data[0].holdings
-        }
-      });
-    })
-  },[match.params.user_id])
+export const PieCharts = () => {
+  const { holdingsState, dispatch } = useContext(HoldingsData);
 
   return(
     <Fragment>
