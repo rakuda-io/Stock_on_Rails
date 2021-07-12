@@ -16,12 +16,7 @@ function App() {
         path="/users/:user_id/holdings"
         render= {({match}) =>
           <Dashboard match={match}/>
-      }
-      // render={({ match }) =>
-      //   <PieCharts
-      //   match={match}
-      //   />
-      // }
+        }
         />
       </Switch>
     </Router>

@@ -1,15 +1,7 @@
-import React, { Fragment, useEffect, useReducer } from 'react';
+import React, { Fragment, useContext } from 'react';
 import styled from 'styled-components';
 
-//reducers
-import {
-  initialState,
-  holdingsActionTypes,
-  holdingsReducer,
-} from '../reducers/holdings';
-
-//apis
-import { fetchHoldings } from '../apis/holdings';
+import { HoldingsData } from './Dashboard';
 
 //constants
 import { REQUEST_STATE } from '../constants';
@@ -21,24 +13,8 @@ const LvWrapper = styled.p`
   margin: 0 0 0 0;
 `
 
-
-export const Level = ({
-  match
-  }) => {
-  const [holdingsState, dispatch] = useReducer(holdingsReducer, initialState);
-  useEffect(() => {
-    dispatch({ type: holdingsActionTypes.FETCHING});
-    fetchHoldings(match.params.user_id)
-    .then((data) => {
-      dispatch({
-        type: holdingsActionTypes.FETCH_SUCCESS,
-        payload: {
-          holdings: data[0].holdings
-        }
-      });
-    })
-  },[match.params.user_id])
-
+export const Level = () => {
+  const { holdingsState, dispatch } = useContext(HoldingsData);
   const Total = holdingsState.holdingsList.reduce((p, x) => p + x.total_dividend, 0)
   const Level = (Total,lv) => {
     if(Total >= 5){

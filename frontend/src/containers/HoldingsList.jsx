@@ -1,5 +1,7 @@
-import React, { Fragment, useEffect, useReducer } from 'react';
+import React, { Fragment, useContext } from 'react';
 import styled from 'styled-components';
+
+import { HoldingsData } from './Dashboard';
 
 //material ui
 import Link from '@material-ui/core/Link';
@@ -8,16 +10,6 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-
-//apis
-import { fetchHoldings } from '../apis/holdings';
-
-//reducers
-import {
-  initialState,
-  holdingsActionTypes,
-  holdingsReducer,
-} from '../reducers/holdings';
 
 //constants
 import { REQUEST_STATE } from '../constants';
@@ -30,24 +22,8 @@ const TickerWrapper = styled.b`
   border-radius: 10px;
 `
 
-export const HoldingsList = ({
-  match
-  }) => {
-  const [holdingsState, dispatch] = useReducer(holdingsReducer, initialState);
-  useEffect(() => {
-    dispatch({ type: holdingsActionTypes.FETCHING});
-    fetchHoldings(match.params.user_id)
-    .then((data) => {
-      dispatch({
-        type: holdingsActionTypes.FETCH_SUCCESS,
-        payload: {
-          holdings: data[0].holdings
-        }
-      });
-    })
-  },[match.params.user_id])
-  // holdingsState.holdingsList.map((holding) => (
-  //   holding.company_name
+export const HoldingsList = () => {
+  const { holdingsState, dispatch } = useContext(HoldingsData);
 
   return(
     <Fragment>
