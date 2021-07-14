@@ -17,7 +17,6 @@ const MainLogoText = styled.p`
 `
 
 const Header = styled.div`
-  background: #336633;
   padding-left: 10px;
   width: 100%;
 `
