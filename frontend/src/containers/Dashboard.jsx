@@ -21,7 +21,6 @@ import MenuIcon from '@material-ui/icons/Menu';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './ListItems';
-import styled from 'styled-components';
 
 //components
 import { HeaderParts } from './HeaderParts.jsx';
@@ -40,6 +39,7 @@ import {
 
 //apis
 import { fetchHoldings } from '../apis/holdings';
+
 
 function Copyright() {
   return (
@@ -109,6 +109,7 @@ const useStyles = makeStyles((theme) => ({
       easing: theme.transitions.easing.sharp,
       duration: theme.transitions.duration.enteringScreen,
     }),
+    backgroundColor: 'lightgrey'
   },
   drawerPaperClose: {
     overflowX: 'hidden',
@@ -126,6 +127,7 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     height: '100vh',
     overflow: 'auto',
+    backgroundColor: 'grey'
   },
   container: {
     paddingTop: theme.spacing(4),
@@ -136,55 +138,12 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     overflow: 'auto',
     flexDirection: 'column',
+    backgroundColor: 'lightgrey'
   },
   fixedHeight: {
     height: 300,
   },
 }));
-
-//CSS
-const Background = styled.div`
-  background-color: lightgrey;
-`
-// const GridWrapper = styled.div`
-//   display: grid;
-//   grid-template-rows: 300px 300px;
-//   grid-template-columns: 400px 300px 1fr;
-// `;
-
-// const Chart = styled.div`
-//   grid-row: 1 / 2;
-//   grid-column: 1 / 2;
-//   background-color: lightgrey;
-//   padding: 3px;
-//   margin: 10px;
-//   /* margin-right: -350px; */
-//   /* grid-template-rows: 30%; */
-// `;
-
-// const TotalWrapper = styled.div`
-//   grid-row: 1 / 2;
-//   grid-column: 2 / 3;
-//   margin: 10px 0 10px 0;
-//   padding: 30px 0 0 50px;
-//   background-color: lightgrey;
-// `;
-
-// const LevelWrapper = styled.div`
-//   grid-row: 1 / 2;
-//   grid-column: 3 / 4;
-//   margin: 10px;
-//   padding: 10px 0 0 50px;
-//   background-color: lightgrey;
-// `;
-
-// const ListWrapper = styled.div`
-//   grid-row: 2 / 3;
-//   grid-column: 1 / 4;
-//   background-color: lightgrey;
-//   margin: 0 10px 10px 10px;
-//   padding: 0 0 100px 0;
-// `;
 
 export const HoldingsData = React.createContext()
 
@@ -264,24 +223,25 @@ export const Dashboard = ({
           <div className={classes.appBarSpacer} />
           <Container maxWidth="lg" className={classes.container}>
             <Grid container spacing={2}>
-              {/* Chart */}
+              {/* 配当合計 */}
               <Grid item xs={12} md={2} lg={2}>
                 <Paper className={fixedHeightPaper}>
                   <Total_dividend />
                 </Paper>
               </Grid>
+              {/* 円グラフ */}
               <Grid item xs={12} md={4} lg={4}>
                 <Paper className={fixedHeightPaper}>
                   <PieCharts />
                 </Paper>
               </Grid>
-              {/* Recent Deposits */}
+              {/* レベルメッセージ */}
               <Grid item xs={12} md={6} lg={6}>
                 <Paper className={fixedHeightPaper}>
                   <Level />
                 </Paper>
               </Grid>
-              {/* Recent Orders */}
+              {/* 保有株リスト */}
               <Grid item xs={12}>
                 <Paper className={classes.paper}>
                   <HoldingsList />
@@ -298,25 +258,4 @@ export const Dashboard = ({
     {/* </Background> */}
     </ThemeProvider>
   );
-
-  //     <Background>
-
-  //       <GridWrapper>
-  //         <Chart>
-  //           <PieCharts match={match}/>
-  //         </Chart>
-  //         <TotalWrapper>
-  //         <Total_dividend match={match}/>
-  //         </TotalWrapper>
-  //         <LevelWrapper>
-  //         <Level match={match}/>
-  //         </LevelWrapper>
-  //         <ListWrapper>
-  //           <HoldingsList />
-  //         </ListWrapper>
-  //       </GridWrapper>
-
-  //     </Background>
-  //   </>
-  // )
 }

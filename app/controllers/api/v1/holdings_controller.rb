@@ -26,6 +26,11 @@ module Api
           dividend: dividends,
         ], status: :ok
       end
+
+      def create
+        user = User.find(params[:user_id])
+        user.holdings.New
+      end
     end
 
     def ffaaf

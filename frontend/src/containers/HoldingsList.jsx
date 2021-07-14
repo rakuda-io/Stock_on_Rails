@@ -1,7 +1,8 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useState, } from 'react';
 import styled from 'styled-components';
 
 import { HoldingsData } from './Dashboard';
+import { AddDialog } from './AddDialog';
 
 //material ui
 import Link from '@material-ui/core/Link';
@@ -10,6 +11,7 @@ import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
 
 //constants
 import { REQUEST_STATE } from '../constants';
@@ -24,6 +26,13 @@ const TickerWrapper = styled.b`
 
 export const HoldingsList = () => {
   const { holdingsState, dispatch } = useContext(HoldingsData);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const handleOpen = () => {
+    setDialogOpen(true);
+  };
+  const handleClose = () => {
+    setDialogOpen(false);
+  };
 
   return(
     <Fragment>
@@ -57,11 +66,13 @@ export const HoldingsList = () => {
                 <TableCell>{holding.quantity}株</TableCell>
                 <TableCell>${holding.dividend}</TableCell>
                 <TableCell>${holding.quantity * holding.dividend}</TableCell>
+                <TableCell><Button color="primary" onClick={handleOpen}>＋</Button></TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       }
+      <AddDialog isOpen={dialogOpen} doClose={() => handleClose()}/>
     </Fragment>
   )
 }
