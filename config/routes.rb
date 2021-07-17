@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       resources :users do
         resources :holdings, only: %i[index]
       end
+      resources :stocks
     end
   end
 end

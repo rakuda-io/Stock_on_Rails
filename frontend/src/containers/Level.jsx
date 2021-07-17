@@ -14,7 +14,7 @@ const LvWrapper = styled.p`
 `
 
 export const Level = () => {
-  const { holdingsState, dispatch } = useContext(HoldingsData);
+  const { holdingsState } = useContext(HoldingsData);
   const Total = holdingsState.holdingsList.reduce((p, x) => p + x.total_dividend, 0)
   const Level = (Total,lv) => {
     if(Total >= 5){

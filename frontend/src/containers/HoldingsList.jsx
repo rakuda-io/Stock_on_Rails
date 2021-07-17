@@ -25,7 +25,7 @@ const TickerWrapper = styled.b`
 `
 
 export const HoldingsList = () => {
-  const { holdingsState, dispatch } = useContext(HoldingsData);
+  const { holdingsState } = useContext(HoldingsData);
   const [dialogOpen, setDialogOpen] = useState(false);
   const handleOpen = () => {
     setDialogOpen(true);
