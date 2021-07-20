@@ -17,8 +17,9 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(3)
   },
   button: {
-    marginTop: theme.spacing(10),
-    padding: 10,
+    marginTop: theme.spacing(8),
+    marginRight: theme.spacing(2),
+    float: "right",
   }
 }));
 
@@ -45,16 +46,6 @@ export const CustomizedSelects = () => {
       });
     })
   }, [])
-  // const tickers = []
-  // if(stocksState.fetchState === REQUEST_STATE.OK) {
-  //   const map = new Map()
-  //   const tmp = Object.entries(stocksState.stocksList).map(([key, value]) => ({key, value}))
-  //   map.set(tmp[0]['value']['stocks'], tmp[0]['value']['stocks'])
-  //   const arrayStocks = Array.from(map)
-  //   arrayStocks[0][0].map((ticker) =>
-  //     tickers.push(ticker)
-  //   )
-  // }
 
   const tickers = []
   if(stocksState.fetchState === REQUEST_STATE.OK) {
@@ -84,7 +75,7 @@ export const CustomizedSelects = () => {
           />
         }
       />
-      <FormHelperText>Ticker Symbol</FormHelperText>
+      <FormHelperText>Select Ticker Symbol</FormHelperText>
 
       <TextField
         className={classes.margin}
@@ -94,7 +85,7 @@ export const CustomizedSelects = () => {
         InputProps={{ inputProps: { min: 0 } }}
         onChange={QuantityHandleChange}
         />
-      <FormHelperText>Quantity</FormHelperText>
+      <FormHelperText>Select Quantity</FormHelperText>
 
       <Button
         className={classes.button}

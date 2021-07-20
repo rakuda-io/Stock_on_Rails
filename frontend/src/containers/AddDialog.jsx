@@ -1,9 +1,5 @@
-import React, { useEffect, useState, useReducer, } from 'react';
+import React from 'react';
 import { DialogContent, Dialog, DialogTitle, DialogActions } from '@material-ui/core';
-// import Select from 'react-select';
-import { fetchStocks } from '../apis/stocks';
-import { initialState, holdingsActionTypes, stocksReducer } from '../reducers/stocks';
-import { REQUEST_STATE } from '../constants';
 import { CustomizedSelects } from './SelectBox';
 
 
@@ -20,7 +16,7 @@ export const AddDialog = ({
       <DialogTitle>
         保有株編集
       </DialogTitle>
-      <DialogContent style={{height: 300, width: 300}}>
+      <DialogContent style={{height: 300, width: 270}}>
         <CustomizedSelects />
       </DialogContent>
       <DialogActions>
