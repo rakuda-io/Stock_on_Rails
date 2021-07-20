@@ -175,7 +175,6 @@ export const Dashboard = ({
 
   return(
     <ThemeProvider theme={theme}>
-    {/* <Background> */}
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
@@ -255,7 +254,6 @@ export const Dashboard = ({
         </main>
       </HoldingsData.Provider>
     </div>
-    {/* </Background> */}
     </ThemeProvider>
   );
 }

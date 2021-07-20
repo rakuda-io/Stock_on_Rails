@@ -5,7 +5,6 @@ import { HoldingsData } from './Dashboard';
 import { AddDialog } from './AddDialog';
 
 //material ui
-import Link from '@material-ui/core/Link';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
