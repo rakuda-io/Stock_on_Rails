@@ -12,8 +12,10 @@ import { FormHelperText } from '@material-ui/core';
 export const StocksData = React.createContext()
 
 const useStyles = makeStyles((theme) => ({
-  margin: {
-    margin: theme.spacing(1),
+  margin1: {
+    marginBottom: theme.spacing(1),
+  },
+  margin2: {
     marginTop: theme.spacing(3)
   },
   button: {
@@ -60,6 +62,7 @@ export const CustomizedSelects = () => {
 
   return (
     <div>
+      <FormHelperText className={classes.margin1}>Select Ticker Symbol</FormHelperText>
       <Autocomplete
         id="combo-box-demo"
         options={tickers}
@@ -75,17 +78,15 @@ export const CustomizedSelects = () => {
           />
         }
       />
-      <FormHelperText>Select Ticker Symbol</FormHelperText>
 
+      <FormHelperText className={classes.margin2}>Select Quantity</FormHelperText>
       <TextField
-        className={classes.margin}
         id="native-select"
         type="number"
         value={quantity}
         InputProps={{ inputProps: { min: 0 } }}
         onChange={QuantityHandleChange}
         />
-      <FormHelperText>Select Quantity</FormHelperText>
 
       <Button
         className={classes.button}

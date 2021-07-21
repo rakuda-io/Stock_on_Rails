@@ -1,4 +1,4 @@
-import React, { useReducer, useEffect, } from 'react';
+import React, { useReducer, useEffect, useState, } from 'react';
 import clsx from 'clsx';
 import { makeStyles, ThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import red from '@material-ui/core/colors/red';
@@ -22,13 +22,25 @@ import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import { mainListItems, secondaryListItems } from './ListItems';
 
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import ListItemText from '@material-ui/core/ListItemText';
+import ListSubheader from '@material-ui/core/ListSubheader';
+import DashboardTwoToneIcon from '@material-ui/icons/DashboardTwoTone';
+import HomeTwoToneIcon from '@material-ui/icons/HomeTwoTone';
+import LibraryAddTwoToneIcon from '@material-ui/icons/LibraryAddTwoTone';
+import PeopleIcon from '@material-ui/icons/People';
+import BarChartIcon from '@material-ui/icons/BarChart';
+import LayersIcon from '@material-ui/icons/Layers';
+import AssignmentIcon from '@material-ui/icons/Assignment';
+
 //components
 import { HeaderParts } from './HeaderParts.jsx';
 import { PieCharts } from './PieChart.jsx';
 import { HoldingsList } from './HoldingsList.jsx';
 import { Total_dividend } from './TotalDividend.jsx';
 import { Level } from './Level.jsx';
-// import { MyContext } from '../MyContext.js';
+import { AddDialog } from './AddDialog';
 
 //reducers
 import {
@@ -151,13 +163,22 @@ export const Dashboard = ({
   match
   }) => {
     const classes = useStyles();
-    const [open, setOpen] = React.useState(false);
+    const [drawerOpen, setDrawerOpen] = useState(false);
     const handleDrawerOpen = () => {
-      setOpen(true);
+      setDrawerOpen(true);
     };
     const handleDrawerClose = () => {
-      setOpen(false);
+      setDrawerOpen(false);
     };
+
+    const [dialogOpen, setDialogOpen] = useState(false);
+    const handleDialogOpen = () => {
+      setDialogOpen(true);
+    };
+    const handleDialogClose = () => {
+      setDialogOpen(false);
+    };
+
     const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [holdingsState, dispatch] = useReducer(holdingsReducer, initialState);
     useEffect(() => {
@@ -177,14 +198,14 @@ export const Dashboard = ({
     <ThemeProvider theme={theme}>
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar position="absolute" className={clsx(classes.appBar, open && classes.appBarShift)}>
+      <AppBar position="absolute" className={clsx(classes.appBar, drawerOpen && classes.appBarShift)}>
         <Toolbar className={classes.toolbar}>
           <IconButton
             edge="start"
             color="inherit"
             aria-label="open drawer"
             onClick={handleDrawerOpen}
-            className={clsx(classes.menuButton, open && classes.menuButtonHidden)}
+            className={clsx(classes.menuButton, drawerOpen && classes.menuButtonHidden)}
           >
             <MenuIcon />
           </IconButton>
@@ -202,9 +223,9 @@ export const Dashboard = ({
       <Drawer
         variant="permanent"
         classes={{
-          paper: clsx(classes.drawerPaper, !open && classes.drawerPaperClose),
+          paper: clsx(classes.drawerPaper, !drawerOpen && classes.drawerPaperClose),
         }}
-        open={open}
+        open={drawerOpen}
       >
         <div className={classes.toolbarIcon}>
           <IconButton onClick={handleDrawerClose}>
@@ -212,11 +233,39 @@ export const Dashboard = ({
           </IconButton>
         </div>
         <Divider />
-        <List>{ mainListItems }</List>
+        {/* <List>{ mainListItems }</List> */}
+        <List>
+          <ListItem button>
+            <ListItemIcon>
+              <HomeTwoToneIcon />
+            </ListItemIcon>
+              <ListItemText primary="Haito-kunについて" />
+          </ListItem>
+          <ListItem>
+            <ListItemIcon>
+              <DashboardTwoToneIcon />
+            </ListItemIcon>
+              <ListItemText primary="dashboard" />
+          </ListItem>
+          <ListItem button onClick={handleDialogOpen}>
+            <ListItemIcon>
+              <LibraryAddTwoToneIcon />
+            </ListItemIcon>
+              <ListItemText primary="保有株新規登録" />
+          </ListItem>
+        </List>
         <Divider />
-        <List>{ secondaryListItems }</List>
+        <List>
+          <ListItem button>
+            <ListItemIcon>
+              <AssignmentIcon />
+            </ListItemIcon>
+            <ListItemText primary="Reports" />
+          </ListItem>
+        </List>
       </Drawer>
 
+      <AddDialog isOpen={dialogOpen} doClose={() => handleDialogClose()}/>
       <HoldingsData.Provider value={{ holdingsState, dispatch }}>
         <main className={classes.content}>
           <div className={classes.appBarSpacer} />
