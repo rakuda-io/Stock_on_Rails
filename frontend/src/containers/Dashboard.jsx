@@ -158,6 +158,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const HoldingsData = React.createContext()
+export const UserIdData = React.createContext()
 
 export const Dashboard = ({
   match
@@ -196,6 +197,7 @@ export const Dashboard = ({
 
   return(
     <ThemeProvider theme={theme}>
+    <UserIdData.Provider value={{ match }}>
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="absolute" className={clsx(classes.appBar, drawerOpen && classes.appBarShift)}>
@@ -303,6 +305,7 @@ export const Dashboard = ({
         </main>
       </HoldingsData.Provider>
     </div>
+    </UserIdData.Provider>
     </ThemeProvider>
   );
 }

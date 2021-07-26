@@ -1,13 +1,15 @@
-import React, { useEffect, useReducer, } from 'react';
+import React, { useEffect, useReducer, useContext, } from 'react';
 import { makeStyles, } from '@material-ui/core/styles';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
 
-import { fetchStocks } from '../apis/stocks';
+import { fetchStocks, } from '../apis/stocks';
+import { postHoldings } from '../apis/holdings';
 import { initialState, holdingsActionTypes, stocksReducer } from '../reducers/stocks';
 import { REQUEST_STATE } from '../constants';
 import { FormHelperText } from '@material-ui/core';
+import { UserIdData } from './Dashboard';
 
 export const StocksData = React.createContext()
 
@@ -26,15 +28,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 export const CustomizedSelects = () => {
+  const inheritMatch = useContext(UserIdData);
   const classes = useStyles();
   const [ticker, setTicker] = React.useState('')
   const [quantity, setQuantity] = React.useState(0)
-  const TickerHandleChange = (event) => {
-    setTicker(event.target.value);
-  };
-  const QuantityHandleChange = (event) => {
-    setQuantity(event.target.value);
-  }
+  // const u_id = useParams();
+  // const TickerInputValue = (event) => {
+  //   setTicker(event.target.value);
+  // };
+  // const QuantityInputValue = (event) => {
+  //   setQuantity(event.target.value);
+  // }
+  const handleSubmit = (e) => {
+    console.log(inheritMatch.match.params.user_id)
+    console.log(ticker)
+    console.log(quantity)
+    e.preventDefault();
+    postHoldings(inheritMatch.match.params.user_id, ticker, quantity)
+    .then(() => {
+      {window.location.reload()}
+  })}
+
+
   const [stocksState, dispatch] = useReducer(stocksReducer, initialState);
   useEffect(() => {
     dispatch({ type: holdingsActionTypes.FETCHING });
@@ -49,6 +64,7 @@ export const CustomizedSelects = () => {
     })
   }, [])
 
+  //Select Boxの中身
   const tickers = []
   if(stocksState.fetchState === REQUEST_STATE.OK) {
     const map = new Map()
@@ -68,13 +84,13 @@ export const CustomizedSelects = () => {
         options={tickers}
         getOptionLabel={(option) => option.label}
         style={{ width: 210 }}
+        onChange={(event) => setTicker(event.target.innerHTML)}
         renderInput={(params) =>
           <TextField
             {...params}
             label="銘柄を選んでください"
-            value={ticker}
             variant="outlined"
-            onChange={TickerHandleChange}
+            value={ticker}
           />
         }
       />
@@ -85,7 +101,7 @@ export const CustomizedSelects = () => {
         type="number"
         value={quantity}
         InputProps={{ inputProps: { min: 0 } }}
-        onChange={QuantityHandleChange}
+        onChange={(event) => setQuantity(parseFloat(event.target.value))}
         />
 
       <Button
@@ -93,6 +109,7 @@ export const CustomizedSelects = () => {
         type="button"
         variant="outlined"
         color="primary"
+        onClick={handleSubmit}
       >
         登録
       </Button>

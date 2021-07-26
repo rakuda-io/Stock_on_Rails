@@ -1,4 +1,4 @@
-import React, { Fragment, useContext, useState, } from 'react';
+import React, { Fragment, useContext, useState, useEffect, useReducer } from 'react';
 import styled from 'styled-components';
 
 import { HoldingsData } from './Dashboard';
@@ -15,6 +15,15 @@ import Button from '@material-ui/core/Button';
 //constants
 import { REQUEST_STATE } from '../constants';
 
+import {
+  initialState,
+  holdingsActionTypes,
+  holdingsReducer,
+} from '../reducers/holdings';
+
+import { fetchHoldings } from '../apis/holdings';
+import { UserIdData } from './Dashboard';
+
 //css (styled component)
 const TickerWrapper = styled.b`
   background: green;
@@ -25,6 +34,7 @@ const TickerWrapper = styled.b`
 
 export const HoldingsList = () => {
   const { holdingsState } = useContext(HoldingsData);
+  const inheritMatch = useContext(UserIdData);
   const [dialogOpen, setDialogOpen] = useState(false);
   const handleOpen = () => {
     setDialogOpen(true);
@@ -32,6 +42,10 @@ export const HoldingsList = () => {
   const handleClose = () => {
     setDialogOpen(false);
   };
+  useEffect(() => {
+    fetchHoldings(inheritMatch.match.params.user_id)
+    .then(() => {})
+  },[holdingsState.holdingsList])
 
   return(
     <Fragment>
