@@ -39,9 +39,9 @@ module Api
       end
     end
 
-    private
-      def holding_params
-        params.require(:holdings).permit(:ticker, :quantity)
-      end
+    # private
+    #   def holding_params
+    #     params.require(:holdings).permit(:ticker, :quantity)
+    #   end
   end
 end

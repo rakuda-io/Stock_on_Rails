@@ -157,6 +157,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// Context
 export const HoldingsData = React.createContext()
 export const UserIdData = React.createContext()
 
@@ -164,6 +165,9 @@ export const Dashboard = ({
   match
   }) => {
     const classes = useStyles();
+    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
+
+    // メニュードロワーの開閉
     const [drawerOpen, setDrawerOpen] = useState(false);
     const handleDrawerOpen = () => {
       setDrawerOpen(true);
@@ -172,6 +176,7 @@ export const Dashboard = ({
       setDrawerOpen(false);
     };
 
+    // 新規保有株追加ダイアログの開閉
     const [dialogOpen, setDialogOpen] = useState(false);
     const handleDialogOpen = () => {
       setDialogOpen(true);
@@ -180,7 +185,6 @@ export const Dashboard = ({
       setDialogOpen(false);
     };
 
-    const fixedHeightPaper = clsx(classes.paper, classes.fixedHeight);
     const [holdingsState, dispatch] = useReducer(holdingsReducer, initialState);
     useEffect(() => {
       dispatch({ type: holdingsActionTypes.FETCHING});

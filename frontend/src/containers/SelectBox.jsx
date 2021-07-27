@@ -32,17 +32,7 @@ export const CustomizedSelects = () => {
   const classes = useStyles();
   const [ticker, setTicker] = React.useState('')
   const [quantity, setQuantity] = React.useState(0)
-  // const u_id = useParams();
-  // const TickerInputValue = (event) => {
-  //   setTicker(event.target.value);
-  // };
-  // const QuantityInputValue = (event) => {
-  //   setQuantity(event.target.value);
-  // }
   const handleSubmit = (e) => {
-    console.log(inheritMatch.match.params.user_id)
-    console.log(ticker)
-    console.log(quantity)
     e.preventDefault();
     postHoldings(inheritMatch.match.params.user_id, ticker, quantity)
     .then(() => {

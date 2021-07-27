@@ -35,11 +35,13 @@ const TickerWrapper = styled.b`
 export const HoldingsList = () => {
   const { holdingsState } = useContext(HoldingsData);
   const inheritMatch = useContext(UserIdData);
+
+  // 新規保有株追加ダイアログの開閉
   const [dialogOpen, setDialogOpen] = useState(false);
-  const handleOpen = () => {
+  const handleDialogOpen = () => {
     setDialogOpen(true);
   };
-  const handleClose = () => {
+  const handleDialogClose = () => {
     setDialogOpen(false);
   };
   useEffect(() => {
@@ -78,14 +80,14 @@ export const HoldingsList = () => {
                 <TableCell size='small'>{holding.company_name}</TableCell>
                 <TableCell>{holding.quantity}株</TableCell>
                 <TableCell>${holding.dividend}</TableCell>
-                <TableCell>${holding.quantity * holding.dividend}</TableCell>
-                <TableCell><Button color="primary" onClick={handleOpen}>＋</Button></TableCell>
+                <TableCell>${holding.total_dividend}</TableCell>
+                <TableCell><Button color="primary" onClick={handleDialogOpen}>＋</Button></TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       }
-      <AddDialog isOpen={dialogOpen} doClose={() => handleClose()}/>
+      <AddDialog isOpen={dialogOpen} doClose={() => handleDialogClose()}/>
     </Fragment>
   )
 }

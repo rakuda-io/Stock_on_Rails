@@ -19,11 +19,6 @@ export const postHoldings = (user_id, ticker, quantity) => {
     quantity: quantity
   },)
   .then(res => {
-    // console.log(res)
-    // this.setState({
-    //   ticker: ticker,
-    //   quantity: quantity,
-    // })
     return res.data
   })
   .catch((e) => console.error(e))
