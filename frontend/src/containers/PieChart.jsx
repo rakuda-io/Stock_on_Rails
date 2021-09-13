@@ -39,7 +39,7 @@ const CustomTooltip = ({ active, payload }) => {
 
 
 export const PieCharts = () => {
-  const { holdingsState, dispatch } = useContext(HoldingsData);
+  const { holdingsState } = useContext(HoldingsData);
 
   return(
     <Fragment>

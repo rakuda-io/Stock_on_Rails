@@ -1,18 +1,30 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useState, useEffect, useReducer } from 'react';
 import styled from 'styled-components';
+import { Audio } from '@agney/react-loading';
+import Grid from '@material-ui/core/Grid';
 
 import { HoldingsData } from './Dashboard';
+import { AddDialog } from './AddDialog';
 
 //material ui
-import Link from '@material-ui/core/Link';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
+import Button from '@material-ui/core/Button';
 
 //constants
 import { REQUEST_STATE } from '../constants';
+
+import {
+  initialState,
+  holdingsActionTypes,
+  holdingsReducer,
+} from '../reducers/holdings';
+
+import { fetchHoldings } from '../apis/holdings';
+import { UserIdData } from './Dashboard';
 
 //css (styled component)
 const TickerWrapper = styled.b`
@@ -23,16 +35,37 @@ const TickerWrapper = styled.b`
 `
 
 export const HoldingsList = () => {
-  const { holdingsState, dispatch } = useContext(HoldingsData);
+  const { holdingsState } = useContext(HoldingsData);
+  const inheritMatch = useContext(UserIdData);
+
+  // 新規保有株追加ダイアログの開閉
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const handleDialogOpen = () => {
+    setDialogOpen(true);
+  };
+  const handleDialogClose = () => {
+    setDialogOpen(false);
+  };
+  // useEffect(() => {
+  //   fetchHoldings(inheritMatch.match.params.user_id)
+  //   .then(() => {})
+  // },[holdingsState.holdingsList])
 
   return(
     <Fragment>
       {
         holdingsState.fetchState === REQUEST_STATE.LOADING ?
           <Fragment>
-            <p>
-              ロード中...
-            </p>
+            <Grid
+              container
+              spacing={2}
+              direction="column"
+              alignItems="center"
+            >
+              <Grid item xs={3}>
+                <Audio width="50" color="#3db70f" />
+              </Grid>
+            </Grid>
           </Fragment>
         :
         <Table size='small'>
@@ -56,12 +89,14 @@ export const HoldingsList = () => {
                 <TableCell size='small'>{holding.company_name}</TableCell>
                 <TableCell>{holding.quantity}株</TableCell>
                 <TableCell>${holding.dividend}</TableCell>
-                <TableCell>${holding.quantity * holding.dividend}</TableCell>
+                <TableCell>${holding.total_dividend}</TableCell>
+                <TableCell><Button color="primary" onClick={handleDialogOpen}>＋</Button></TableCell>
               </TableRow>
             ))}
           </TableBody>
         </Table>
       }
+      <AddDialog isOpen={dialogOpen} doClose={() => handleDialogClose()}/>
     </Fragment>
   )
 }

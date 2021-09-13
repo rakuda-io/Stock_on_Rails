@@ -13,7 +13,7 @@ const DividendWrapper = styled.p`
 `
 
 export const Total_dividend = () => {
-  const { holdingsState, dispatch } = useContext(HoldingsData);
+  const { holdingsState } = useContext(HoldingsData);
   const total = holdingsState.holdingsList.reduce((p, x) => p + x.total_dividend, 0)
 
   return(

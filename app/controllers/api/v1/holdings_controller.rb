@@ -23,26 +23,25 @@ module Api
 
         render json: [
           holdings: holdings,
-          dividend: dividends,
         ], status: :ok
+      end
+
+      def create
+        user = User.find(params[:user_id])
+        holding = user.holdings.create(ticker: params[:ticker], quantity: params[:quantity])
+        if holding.save
+          render json: [
+            holding: holding,
+          ], status: :ok
+        else
+          render json: holding.errors
+        end
       end
     end
 
-    def ffaaf
-      user = User.find(params[:user_id])
-      holdings = user.holdings
-      agent = Mechanize.new
-      dividends = holdings.map { |holding|
-        ticker = holding[:ticker]
-        url = Stock.where(ticker: ticker).pluck(:url).join
-        individual_page = agent.get(url)
-        dividend = individual_page.search("td")[106].text.to_f
-        Stock.where(ticker: ticker).update(dividend: dividend)
-      }
-    end
-
-    def nil_check
-      Holding.where()
-    end
+    # private
+    #   def holding_params
+    #     params.require(:holdings).permit(:ticker, :quantity)
+    #   end
   end
 end
