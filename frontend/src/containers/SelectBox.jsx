@@ -3,15 +3,13 @@ import { makeStyles, } from '@material-ui/core/styles';
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button'
+import { FormHelperText } from '@material-ui/core';
 
 import { fetchStocks, } from '../apis/stocks';
 import { postHoldings } from '../apis/holdings';
 import { initialState, holdingsActionTypes, stocksReducer } from '../reducers/stocks';
 import { REQUEST_STATE } from '../constants';
-import { FormHelperText } from '@material-ui/core';
 import { UserIdData } from './Dashboard';
-
-export const StocksData = React.createContext()
 
 const useStyles = makeStyles((theme) => ({
   margin1: {
@@ -24,14 +22,18 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(8),
     marginRight: theme.spacing(2),
     float: "right",
-  }
+  },
 }));
+
+export const StocksData = React.createContext()
 
 export const CustomizedSelects = () => {
   const inheritMatch = useContext(UserIdData);
   const classes = useStyles();
   const [ticker, setTicker] = React.useState('')
   const [quantity, setQuantity] = React.useState(0)
+
+  // 登録ボタン押下時
   const handleSubmit = (e) => {
     e.preventDefault();
     postHoldings(inheritMatch.match.params.user_id, ticker, quantity)

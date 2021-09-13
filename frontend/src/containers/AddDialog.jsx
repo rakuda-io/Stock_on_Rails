@@ -2,8 +2,6 @@ import React from 'react';
 import { DialogContent, Dialog, DialogTitle, DialogActions } from '@material-ui/core';
 import { CustomizedSelects } from './SelectBox';
 
-
-
 export const AddDialog = ({
   isOpen,
   doClose,

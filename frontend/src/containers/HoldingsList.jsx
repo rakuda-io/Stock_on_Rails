@@ -1,5 +1,7 @@
 import React, { Fragment, useContext, useState, useEffect, useReducer } from 'react';
 import styled from 'styled-components';
+import { Audio } from '@agney/react-loading';
+import Grid from '@material-ui/core/Grid';
 
 import { HoldingsData } from './Dashboard';
 import { AddDialog } from './AddDialog';
@@ -44,19 +46,26 @@ export const HoldingsList = () => {
   const handleDialogClose = () => {
     setDialogOpen(false);
   };
-  useEffect(() => {
-    fetchHoldings(inheritMatch.match.params.user_id)
-    .then(() => {})
-  },[holdingsState.holdingsList])
+  // useEffect(() => {
+  //   fetchHoldings(inheritMatch.match.params.user_id)
+  //   .then(() => {})
+  // },[holdingsState.holdingsList])
 
   return(
     <Fragment>
       {
         holdingsState.fetchState === REQUEST_STATE.LOADING ?
           <Fragment>
-            <p>
-              ロード中...
-            </p>
+            <Grid
+              container
+              spacing={2}
+              direction="column"
+              alignItems="center"
+            >
+              <Grid item xs={3}>
+                <Audio width="50" color="#3db70f" />
+              </Grid>
+            </Grid>
           </Fragment>
         :
         <Table size='small'>
