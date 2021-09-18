@@ -24,6 +24,10 @@ gem 'bootsnap', '>= 1.4.4', require: false
 gem 'mechanize'    #スクレイピング
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem 'rack-cors'
+gem 'devise'
+gem 'devise-i18n'
+gem 'rails-i18n'
+gem 'devise_token_auth', github: 'lynndylanhurley/devise_token_auth'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console

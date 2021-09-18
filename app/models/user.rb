@@ -1,5 +1,8 @@
 class User < ApplicationRecord
-  has_many :holdings
+  devise :database_authenticatable, :registerable,
+        :recoverable, :rememberable, :validatable
+        # :confirmable
+  include DeviseTokenAuth::Concerns::User
 
-  validates :name, presence: true
+  has_many :holdings
 end
